@@ -27,7 +27,7 @@ Engine_R : CroneEngine {
 			};
 		};
 
-		polloutputCommand = { |index, outputRef|
+		polloutputCommand = { |rrrr, index, outputRef|
 			ifPollIndexWithinBoundsDo.value(index) {
 				var zeroBasedIndex = index - 1; // lua based indexing is used in engine interface
 				var pollConfig = pollConfigs[zeroBasedIndex];
@@ -41,7 +41,7 @@ Engine_R : CroneEngine {
 			};
 		};
 
-		pollvisualCommand = { |index, visual|
+		pollvisualCommand = { |rrrr, index, visual|
 			ifPollIndexWithinBoundsDo.value(index) {
 				var zeroBasedIndex = index - 1; // lua based indexing is used in engine interface
 				var pollConfig = pollConfigs[zeroBasedIndex];
@@ -54,7 +54,7 @@ Engine_R : CroneEngine {
 			};
 		};
 
-		pollclearCommand = { |index|
+		pollclearCommand = { |rrrr, index|
 			ifPollIndexWithinBoundsDo.value(index) {
 				var zeroBasedIndex = index - 1; // lua based indexing is used in engine interface
 				var pollConfig = pollConfigs[zeroBasedIndex];
