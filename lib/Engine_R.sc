@@ -359,7 +359,11 @@ Engine_R : CroneEngine {
 		if (pollConfig[\type].notNil) {
 			this.pollclearCommand(index);
 		};
-		rrrr.tapoutletCommand(index, outputRef);
+		if (scdBasedRrrr) {
+			tapoutputCommand.(rrrr, index, outputRef);
+		} {
+			rrrr.tapoutletCommand(index, outputRef);
+		};
 		pollConfig[\type] = \out;
 		pollConfig[\outputRef] = outputRef;
 		pollConfig[\bus] = rrrr.getTapBus(index);
