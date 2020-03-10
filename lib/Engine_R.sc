@@ -8,7 +8,7 @@ Engine_R : CroneEngine {
 
 	var init, free, newCommand, connectCommand, disconnectCommand, deleteCommand, setCommand, bulksetCommand, newmacroCommand, deletemacroCommand, macrosetCommand, readsampleCommand, tapoutputCommand, tapclearCommand, getTapBus, getVisualBus;
 
-	var polloutCommand, pollvisualCommand, pollclearCommand;
+	var polloutputCommand, pollvisualCommand, pollclearCommand;
 
 	*new { |context, callback| ^super.new(context, callback) }
 
@@ -27,7 +27,7 @@ Engine_R : CroneEngine {
 			};
 		};
 
-		polloutCommand = { |index, outputRef|
+		polloutputCommand = { |index, outputRef|
 			ifPollIndexWithinBoundsDo.value(index) {
 				var zeroBasedIndex = index - 1; // lua based indexing is used in engine interface
 				var pollConfig = pollConfigs[zeroBasedIndex];
@@ -266,16 +266,16 @@ Engine_R : CroneEngine {
 				var index = msg[1];
 				var moduleOutputRef = msg[2];
 				if (rrrr[\trace]) {
-					[SystemClock.seconds, \polloutCommand, (index.asString + moduleOutputRef.asString)[0..20]].debug(\received);
+					[SystemClock.seconds, \polloutputCommand, (index.asString + moduleOutputRef.asString)[0..20]].debug(\received);
 				};
-				polloutCommand.value(rrrr, index, moduleOutputRef);
+				polloutputCommand.value(rrrr, index, moduleOutputRef);
 			};
 		} {
 			this.addCommand('polloutput', "is") { |msg|
 				var index = msg[1];
 				var outputRef = msg[2];
 				if (rrrr.trace) {
-					[SystemClock.seconds, \polloutCommand, (index.asString + outputRef.asString)[0..20]].debug(\received);
+					[SystemClock.seconds, \polloutputCommand, (index.asString + outputRef.asString)[0..20]].debug(\received);
 				};
 				this.polloutCommand(index-1, outputRef);
 			};
@@ -354,7 +354,7 @@ Engine_R : CroneEngine {
 		};
 	}
 
-	polloutCommand { |index, outputRef|
+	polloutputCommand { |index, outputRef|
 		var pollConfig = pollConfigs[index];
 		if (pollConfig[\type].notNil) {
 			this.pollclearCommand(index);
