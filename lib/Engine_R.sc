@@ -13,7 +13,7 @@ Engine_R : CroneEngine {
 	*new { |context, callback| ^super.new(context, callback) }
 
 	spawnScdBasedRrrr {
-		var scdFilePath = PathName(thisProcess.class.filenameSymbol.asString).pathOnly +/+ "r.scd";
+		var scdFilePath = PathName(this.class.filenameSymbol.asString).pathOnly +/+ "r.scd";
 
 		var postPollIndexNotWithinBoundsError = { |pollIndex|
 			"poll index not within bounds: pollIndex % referred, only % polls available".format(pollIndex, numPolls).error;
